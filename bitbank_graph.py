@@ -10,7 +10,7 @@ import sys
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
-def single_chart():
+def single_chart(coin1):
   with bitbank_api.get_connection() as conn:
       # DBから価格の取得
       sql = "SELECT {0}, price_at FROM price".format(coin1)
@@ -21,7 +21,7 @@ def single_chart():
       ax.plot(df.index, df.values)
       plt.show()
 
-def double_chart():
+def double_chart(coin1, coin2):
   with bitbank_api.get_connection() as conn:
       # DBから価格の取得
       sql = "SELECT {0}, {1}, price_at FROM price".format(coin1,coin2)
