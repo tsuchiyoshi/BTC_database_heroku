@@ -1,0 +1,1 @@
+web: python btc_auto_trade.py
