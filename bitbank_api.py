@@ -2,7 +2,7 @@ import requests
 from pprint import pprint
 from decimal import Decimal
 import psycopg2
-import os
+import set_params
 
 # btc_jpy,eth_jpy,mona_jpyの順番で価格を取得する
 urls = ["https://public.bitbank.cc/btc_jpy/ticker", \
@@ -34,14 +34,7 @@ if results:
 
 # Herokuアプリ内のデータベースに接続
 def get_connection():
-    try:
-        # ローカル環境の場合（configファイルからのimport）
-        import config
-        uri = config.URI
-    except:
-        # Herokuサーバの場合（環境変数を利用）
-        uri = os.environ["URI"]
-
+    uri = set_params.URI
     return psycopg2.connect(uri)
 
 

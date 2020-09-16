@@ -1,41 +1,41 @@
 import time
-import config
+import set_params
 from bflib import BfApi
 from cclib import CcApi
 import sys
 
 # 取引所を選択
-select_exchange = config.EXCHANGE
+select_exchange = set_params.EXCHANGE
 
 #### bitflyer の初期値 ####
 if select_exchange == 'bf':
     # APIキー
-    API_KEY = config.BF_API_KEY
-    API_SECRET = config.BF_API_SECRET
-    API_URL = config.BF_API_URL
+    API_KEY = set_params.BF_API_KEY
+    API_SECRET = set_params.BF_API_SECRET
+    API_URL = set_params.BF_API_URL
     # 取引所のパラメータ
-    order_mim_size = config.BF_ORDER_MIN_SIZE   # BTC数量最小値
-    order_digit = config.BF_ORDER_DIGIT         # BTC数量の桁数
-    fee_rate = config.BF_FEE_RATE               # 取引手数料のレート(%)
+    order_mim_size = set_params.BF_ORDER_MIN_SIZE   # BTC数量最小値
+    order_digit = set_params.BF_ORDER_DIGIT         # BTC数量の桁数
+    fee_rate = set_params.BF_FEE_RATE               # 取引手数料のレート(%)
     # 取引パラメータ
-    buy_unit = config.BF_BUY_UNIT               # 購入単位
-    profit = config.BF_PROFIT                   # 価格差
+    buy_unit = set_params.BF_BUY_UNIT               # 購入単位
+    profit = set_params.BF_PROFIT                   # 価格差
 
     api = BfApi(API_KEY, API_SECRET, API_URL)
 
 #### coincheck の初期値 ####
 elif select_exchange == 'cc':
     # APIキー
-    API_KEY = config.CC_API_KEY
-    API_SECRET = config.CC_API_SECRET
-    API_URL = config.CC_API_URL
+    API_KEY = set_params.CC_API_KEY
+    API_SECRET = set_params.CC_API_SECRET
+    API_URL = set_params.CC_API_URL
     # 取引所のパラメータ
-    order_mim_size = config.CC_ORDER_MIN_SIZE   # BTC数量最小値
-    order_digit = config.CC_ORDER_DIGIT         # BTC数量の桁数
-    fee_rate = config.CC_FEE_RATE               # 取引手数料のレート(%)
+    order_mim_size = set_params.CC_ORDER_MIN_SIZE   # BTC数量最小値
+    order_digit = set_params.CC_ORDER_DIGIT         # BTC数量の桁数
+    fee_rate = set_params.CC_FEE_RATE               # 取引手数料のレート(%)
     # 取引パラメータ
-    buy_unit = config.CC_BUY_UNIT               # 購入単位
-    profit = config.CC_PROFIT                   # 価格差
+    buy_unit = set_params.CC_BUY_UNIT               # 購入単位
+    profit = set_params.CC_PROFIT                   # 価格差
 
     api = CcApi(API_KEY, API_SECRET, API_URL)
 
@@ -131,6 +131,6 @@ while True:
         time.sleep(10)
         # 注文が成立するまで（永遠に）待つ
         while api.is_active_order(oid):
-            print('Log : Sell wait')
+            print('Log : Sell wait...')
             time.sleep(5)
         print('Sell completed! oid={0}'.format(oid))
