@@ -8,7 +8,6 @@ try:
 
     # 取引所を選択
     EXCHANGE = config.EXCHANGE
-
     #### bitflyer の初期値 ####
     # APIキー
     BF_API_KEY = config.BF_API_KEY
@@ -51,11 +50,11 @@ except:
     BF_API_URL = os.environ["BF_API_URL"]
     # 取引所のパラメータ
     BF_ORDER_MIN_SIZE = float(os.environ["BF_ORDER_MIN_SIZE"])  # BTC数量最小値
-    BF_ORDER_DIGIT = float(os.environ["BF_ORDER_DIGIT"])  # BTC数量の桁数
+    BF_ORDER_DIGIT = int(os.environ["BF_ORDER_DIGIT"])  # BTC数量の桁数
     BF_FEE_RATE = float(os.environ["BF_FEE_RATE"])  # 取引手数料のレート(%)
     # 取引パラメータ
     BF_BUY_UNIT = float(os.environ["BF_BUY_UNIT"])  # 購入単位
-    BF_PROFIT = float(os.environ["BF_PROFIT"])  # 価格差
+    BF_PROFIT = int(os.environ["BF_PROFIT"])  # 価格差
 
     #### coincheck の初期値 ####
     # APIキー
@@ -64,8 +63,8 @@ except:
     CC_API_URL = os.environ["CC_API_URL"]
     # 取引所のパラメータ
     CC_ORDER_MIN_SIZE = float(os.environ["CC_ORDER_MIN_SIZE"])  # BTC数量最小値
-    CC_ORDER_DIGIT = float(os.environ["CC_ORDER_DIGIT"])  # BTC数量の桁数
+    CC_ORDER_DIGIT = int(os.environ["CC_ORDER_DIGIT"])  # BTC数量の桁数
     CC_FEE_RATE = float(os.environ["CC_FEE_RATE"])  # 取引手数料のレート(%)
     # 取引パラメータ
     CC_BUY_UNIT = float(os.environ["CC_BUY_UNIT"])  # 購入単位
-    CC_PROFIT = float(os.environ["CC_PROFIT"])  # 価格差
+    CC_PROFIT = int(os.environ["CC_PROFIT"])  # 価格差
