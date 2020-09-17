@@ -1,1 +1,1 @@
-web: python btc_auto_trade.py
+worker: python btc_auto_trade.py
