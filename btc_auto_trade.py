@@ -133,4 +133,15 @@ while True:
         while api.is_active_order(oid):
             print('Log : Sell wait...')
             time.sleep(5)
-        print('Sell completed! oid={0}'.format(oid))
+        print('Log : Sell completed! oid={0}'.format(oid))
+
+        # 売却時からある程度価格が下がるまで待機(最大10分)する
+        for i in range(240):
+            # 板情報の取得
+            ob = api.orderbook()
+            # 現在価格を取得(bidの先頭)
+            current_price = ob['bids'][0][0]
+            if (buy_price + 0.5 * profit) > current_price:
+                break
+            time.sleep(5)
+            print('Log : Trade standby... now {0} yen/btc'.format(current_price))
