@@ -42,7 +42,7 @@ class CcApi:
             c = requests.post(self.API_URL + i_path, data=body, headers=headers)
         # 戻り値のチェック
         if c.status_code != 200:
-            raise Exception('HTTP ERROR status={0},{1}'.format(c.status_code,c.text()))
+            raise Exception('HTTP ERROR status={0},{1}'.format(c.status_code, c.text))
         j = c.json()
         if j['success'] != True:
             raise Exception('API ERROR json={0}'.format(j))
@@ -59,11 +59,27 @@ class CcApi:
                                'pair': 'btc_jpy'})
         return j
 
+    def _market_trade_api(self, amount, order_type):
+        self.nonce = self.nonce +1
+        if order_type == 'market_buy':
+            j = self._private_api('/api/exchange/orders',
+                                  self.nonce,
+                                  {'market_buy_amount': amount,
+                                   'order_type': order_type,
+                                   'pair': 'btc_jpy'})
+        elif order_type == 'market_sell':
+            j = self._private_api('/api/exchange/orders',
+                                  self.nonce,
+                                  {'amount': amount,
+                                   'order_type': order_type,
+                                   'pair': 'btc_jpy'})
+        return j
+
     # 板情報を得る関数
     def orderbook(self):
         c = requests.get('https://coincheck.com/api/order_books')
         if c.status_code != 200:
-            raise Exception('HTTP ERROR status={0},{1}'.format(c.status_code,c.text()))
+            raise Exception("HTTP ERROR status={0},{1}".format(c.status_code,c.text()))
         j = c.json()
         return {'asks':[(float(i[0]),float(i[1])) for i in j['asks']],
                 'bids':[(float(i[0]),float(i[1])) for i in j['bids']] }
@@ -76,14 +92,25 @@ class CcApi:
                 'jpy':float(c['jpy'])}
 
     # 売り注文を実行する関数
+    # 指値注文
     def sell(self, price, amount):
         j = self._trade_api(price, amount, 'sell')
         return j['id']
+    # 成行注文
+    def market_sell(self, btc_amount):
+        j = self._market_trade_api(btc_amount, 'market_sell')
+        return j['id']
 
     # 買い注文を実行する関数
+    # 指値注文
     def buy(self, price, amount):
         j = self._trade_api(price, amount, 'buy')
         return j['id']
+    # 成行注文
+    def market_buy(self, jpy_amount):
+        j = self._market_trade_api(jpy_amount, 'market_buy')
+        return j['id']
+
 
     # 注文をキャンセルする関数
     def cancel(self, oid):
