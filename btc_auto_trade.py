@@ -3,6 +3,7 @@ import set_params
 from bflib import BfApi
 from cclib import CcApi
 import sys
+from decimal import Decimal,ROUND_DOWN
 
 # 取引所を選択
 select_exchange = set_params.EXCHANGE
@@ -112,7 +113,7 @@ while True:
     # BTC残高を調べる
     balance = api.balance()
     # 売却数量はBTC残高*(1-fee)
-    sell_amount = round(balance['btc']*(1-0.01*fee_rate), order_digit)
+    sell_amount = float(Decimal(balance['btc']*(1-0.01*fee_rate)).quantize(Decimal(".0001"), rounding=ROUND_DOWN))
 
     if sell_amount < order_mim_size:
         # 部分的な約定等で最小売却単位に届かないならもう一度購入に戻る
