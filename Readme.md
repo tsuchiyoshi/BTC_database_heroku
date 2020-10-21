@@ -29,8 +29,8 @@ https://docs.google.com/presentation/d/1-8wJeXehxp8zDAVGuM2IYXIll8zbkincWJGZuJNr
 
 - その他
     - sample_config.py
-        <br> ローカルでファイルを動作させる場合に ".env" ファイルの代わりになる "congig.py" ファイルのサンプル
+        <br>　ローカルでファイルを動作させる場合に ".env" ファイルの代わりになる "congig.py" ファイルのサンプル
     - set_params.py
-        <br> Heokuの環境変数またはローカルの設定ファイル(config)を読み込むためのファイル
+        <br>　Heokuの環境変数またはローカルの設定ファイル(config)を読み込むためのファイル
     - Readme.md
-        <br> 本ファイル
+        <br>　本ファイル
