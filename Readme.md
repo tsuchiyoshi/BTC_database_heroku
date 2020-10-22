@@ -2,7 +2,7 @@
 ## システム概要について
 仮想通貨取引所のAPIを利用し、価格を取得しDBに格納したり自動取引を行ったりするHeroku上のアプリです。<br>
 詳細は以下をご参考ください。<br>
-https://docs.google.com/presentation/d/1-8wJeXehxp8zDAVGuM2IYXIll8zbkincWJGZuJNrLE0/edit#slide=id.p
+https://docs.google.com/presentation/d/1-8wJeXehxp8zDAVGuM2IYXIll8zbkincWJGZuJNrLE0/edit?usp=sharing
 
 ## 個々のファイルについて
 - Heroku 用の設定ファイル
