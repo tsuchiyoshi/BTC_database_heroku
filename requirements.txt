@@ -2,5 +2,6 @@ requests
 psycopg2
 pytz
 
+pydrive
 os
 
