@@ -48,7 +48,7 @@ with open("credentials.json", "w") as jf:
         "id_token": None,
         "id_token_jwt": None,
         "token_response": {
-            "access_token": "GD_ACCESS_TOKEN",
+            "access_token": GD_ACCESS_TOKEN,
             "expires_in": 3599,
             "scope": ["https://www.googleapis.com/auth/drive", "https://www.googleapis.com/auth/drive.metadata"],
             "token_type": "Bearer"
