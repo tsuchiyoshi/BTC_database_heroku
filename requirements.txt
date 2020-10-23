@@ -1,3 +1,6 @@
 requests
 psycopg2
+pytz
+
 os
+
