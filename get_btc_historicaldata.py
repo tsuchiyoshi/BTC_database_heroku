@@ -182,7 +182,7 @@ for i in range(max_iter):
         sleep(20)
 
         # 進捗の表示
-        print(f"{1}/{max_iter} ({all_df.shape[0]}) complete.")
+        print(f"{i + 1}/{max_iter} ({all_df.shape[0]}) complete.")
 
         # 次の取得基準時間の設定
         next_start = all_df["time_period_end"][all_df.shape[0] - 1]
