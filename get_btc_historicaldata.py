@@ -219,7 +219,7 @@ try:
 
     # アップロード結果を表示
     print(f['title'], f['id'])
-    pprint(f['parents'])
+    print(f['parents'])
     print(f['parents'][0]['id'] == folder_id)
 
 except Exception as e:
