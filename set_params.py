@@ -21,6 +21,7 @@ try:
     BF_BUY_UNIT = config.BF_BUY_UNIT  # 購入単位
     BF_PROFIT = config.BF_PROFIT  # 価格差
 
+
     #### coincheck の初期値 ####
     # APIキー
     CC_API_KEY = config.CC_API_KEY
@@ -34,9 +35,26 @@ try:
     CC_BUY_UNIT = config.CC_BUY_UNIT  # 購入単位
     CC_PROFIT = config.CC_PROFIT  # 価格差
 
+
+    ### GoogleDriveAPIの初期値 ###
+    # ID,Tokenのキーを入力
+    GD_CLIENT_ID = config.GD_CLIENT_ID
+    GD_CLIENT_SECRET = config.GD_CLIENT_SECRET
+    GD_ACCESS_TOKEN = config.GD_ACCESS_TOKEN
+    GD_REFRESH_TOKEN = config.GD_REFRESH_TOKEN
+
+
+    ### CoinAPIの初期値 ###
+    # 使用するAPIキーの数
+    CA_API_KEY_NUM = config.CA_API_KEY_NUM
+    # ID,Tokenのキーを入力
+    CA_API_KEY_1 = config.CA_API_KEY_1
+    CA_API_KEY_2 = config.CA_API_KEY_2
+    CA_API_KEY_3 = config.CA_API_KEY_3
+
+
 except:
     # Herokuサーバの場合（環境変数を利用）
-
     # HerokuサーバのURI
     URI = os.environ["URI"]
 
@@ -56,6 +74,7 @@ except:
     BF_BUY_UNIT = float(os.environ["BF_BUY_UNIT"])  # 購入単位
     BF_PROFIT = int(os.environ["BF_PROFIT"])  # 価格差
 
+
     #### coincheck の初期値 ####
     # APIキー
     CC_API_KEY = os.environ["CC_API_KEY"]
@@ -68,3 +87,20 @@ except:
     # 取引パラメータ
     CC_BUY_UNIT = float(os.environ["CC_BUY_UNIT"])  # 購入単位
     CC_PROFIT = int(os.environ["CC_PROFIT"])  # 価格差
+
+
+    ### GoogleDriveAPIの初期値 ###
+    # ID,Tokenのキーを入力
+    GD_CLIENT_ID = os.environ["GD_CLIENT_ID"]
+    GD_CLIENT_SECRET = os.environ["GD_CLIENT_SECRET"]
+    GD_ACCESS_TOKEN = os.environ["GD_ACCESS_TOKEN"]
+    GD_REFRESH_TOKEN = os.environ["GD_REFRESH_TOKEN"]
+
+
+    ### CoinAPIの初期値 ###
+    # 使用するAPIキーの数
+    CA_API_KEY_NUM = int(os.environ["CA_API_KEY_NUM"])
+    # ID,Tokenのキーを入力
+    CA_API_KEY_1 = os.environ["CA_API_KEY_1"]
+    CA_API_KEY_2 = os.environ["CA_API_KEY_2"]
+    CA_API_KEY_3 = os.environ["CA_API_KEY_3"]
