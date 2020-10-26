@@ -106,7 +106,7 @@ def rename_and_tocsv(df):
 #######################
 
 # プログラムを開始
-print('start BTC_histrical_data program.')
+print('start btc_histrical_data program.')
 
 print('Connecting Google Drive...')
 try:
@@ -133,7 +133,7 @@ if len(file_list) > 0:
     # last_file をローカルにダウンロード
     f = drive.CreateFile({'id': last_file_id})
     f.GetContentFile(last_file_name)
-    print(f'{last_file_name} ---download---> local(last_df)')
+    print(f'GoogleDrive[{last_file_name}] ---download---> Local[last_df]')
     # ファイルを読み込み
     last_df = pd.read_csv(last_file_name)
     print("last_df shape :", last_df.shape)
@@ -150,6 +150,7 @@ else:
 ### CoinAPIでヒストリカルデータの取得 ###
 ####################################
 
+print(f'CoinAPI start.')
 # 初回の取得基準時間の設定
 next_start = start_of
 # エラーカウンターの初期化
@@ -200,7 +201,7 @@ for i in range(max_iter):
 
         # エラーが上限を超えた場合、これまでのデータをCSVに保存してループ終了
         else:
-            print(f'Program stop. Data Saving...')
+            print(f'CoinAPI stop. Data Saving...')
             break
 
 ###########################################
@@ -212,7 +213,7 @@ try:
     new_file_name = rename_and_tocsv(all_df)
 
     # ファイルをGoogleDriveへアップロード
-    print(f'Upload {new_file_name} ---upload---> GoogleDrive[{folder_name}]')
+    print(f'Upload Local[{new_file_name}] ---upload---> GoogleDrive[{folder_name}]')
     f = drive.CreateFile({"parents": [{"id": folder_id}]})
     f.SetContentFile(new_file_name)
     f.Upload()
