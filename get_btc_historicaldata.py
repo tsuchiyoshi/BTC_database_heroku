@@ -106,7 +106,11 @@ def rename_and_tocsv(df):
 #######################
 
 # プログラムを開始
-print('start btc_histrical_data program.')
+print('''
+#########################################
+### Start btc_histrical_data program! ###
+#########################################
+''')
 
 print('Connecting Google Drive...')
 try:
@@ -133,7 +137,7 @@ if len(file_list) > 0:
     # last_file をローカルにダウンロード
     f = drive.CreateFile({'id': last_file_id})
     f.GetContentFile(last_file_name)
-    print(f'GoogleDrive[{last_file_name}] ---download---> Local[last_df]')
+    print(f'Local[last_df] <---download--- GoogleDrive[{last_file_name}]')
     # ファイルを読み込み
     last_df = pd.read_csv(last_file_name)
     print("last_df shape :", last_df.shape)
@@ -150,7 +154,7 @@ else:
 ### CoinAPIでヒストリカルデータの取得 ###
 ####################################
 
-print(f'CoinAPI start.')
+print(f'CoinAPI process start.')
 # 初回の取得基準時間の設定
 next_start = start_of
 # エラーカウンターの初期化
@@ -193,15 +197,15 @@ for i in range(max_iter):
     except Exception as e:
         error_counter += 1
         print(f'Error Occured!({e})')
-        print(f'Total error_count: ({error_counter}/{len(CA_API_KEY_LIST) + 1})')
+        print(f'Total error_count: ({error_counter}/{len(CA_API_KEY_LIST)*2 + 1})')
 
-        # エラー回数がキーの総数以内であれば処理続行
-        if error_counter <= len(CA_API_KEY_LIST):
+        # エラー回数がキーの総数x2以内であれば処理続行
+        if error_counter <= len(CA_API_KEY_LIST)*2:
             pass
 
         # エラーが上限を超えた場合、これまでのデータをCSVに保存してループ終了
         else:
-            print(f'CoinAPI stop. Data Saving...')
+            print(f'CoinAPI process finished. Data Saving...')
             break
 
 ###########################################
@@ -213,15 +217,13 @@ try:
     new_file_name = rename_and_tocsv(all_df)
 
     # ファイルをGoogleDriveへアップロード
-    print(f'Upload Local[{new_file_name}] ---upload---> GoogleDrive[{folder_name}]')
+    print(f'Local[{new_file_name}] ---upload---> GoogleDrive[{folder_name}]')
     f = drive.CreateFile({"parents": [{"id": folder_id}]})
     f.SetContentFile(new_file_name)
     f.Upload()
 
     # アップロード結果を表示
     print(f['title'], f['id'])
-    print(f['parents'])
-    print(f['parents'][0]['id'] == folder_id)
 
 except Exception as e:
     print(f'Error Occured!({e})')
