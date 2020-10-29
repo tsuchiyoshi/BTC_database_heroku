@@ -26,7 +26,6 @@ https://docs.google.com/presentation/d/1-8wJeXehxp8zDAVGuM2IYXIll8zbkincWJGZuJNr
         <br>　Coincheck,BitFlyer等の取引所APIを利用し、特定のルールのもと各取引所でBTC・JPYを自動取引する実行ファイル
     - cclib.py, bflib.py
         <br>　取引所ごとに仕様が異なるAPIの主要機能(価格情報・板情報・口座残高取得、売買発注・キャンセル等)を、btc_auto_trade.pyで取引所に依らず使えるよう、共通の形の関数にまとめ直した簡易的なライブラリ
-
 - その他
     - sample_config.py
         <br>　ローカルでファイルを動作させる場合に ".env" ファイルの代わりになる "congig.py" ファイルのサンプル
@@ -34,3 +33,7 @@ https://docs.google.com/presentation/d/1-8wJeXehxp8zDAVGuM2IYXIll8zbkincWJGZuJNr
         <br>　Heokuの環境変数またはローカルの設定ファイル(config)を読み込むためのファイル
     - Readme.md
         <br>　本ファイル
+
+- 開発中
+    - get_btc_historicaldata.py
+        <br>CoinAPIからCoincheckのヒストリカル価格データを取得し、csvにしてGoogleDriveに保存するプログラム
