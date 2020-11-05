@@ -4,6 +4,7 @@ import hmac
 import requests
 import datetime
 import json
+import set_params
 
 class CcApi:
     CURRENCY_PAIR = ''
@@ -36,10 +37,13 @@ class CcApi:
                 c = requests.get(self.API_URL + i_path, headers=headers)
         else:
             body = json.dumps(i_params);
+            print(body)
             w = str(i_nonce) + self.API_URL + i_path + body
+            print(w)
             s.update(w.encode('utf-8'))
+            print('s:',s)
             headers['ACCESS-SIGNATURE'] = s.hexdigest()
-            c = requests.post(self.API_URL + i_path, data=body, headers=headers)
+            c = requests.post(self.API_URL + i_path, params=body, headers=headers)
         # 戻り値のチェック
         if c.status_code != 200:
             raise Exception('HTTP ERROR status={0},{1}'.format(c.status_code, c.text))
@@ -120,13 +124,13 @@ class CcApi:
                                  i_method = 'delete')
 
     # 注文の状態を調べる関数
-    def is_active_order(self,oid):
+    def is_active_order(self, oid):
         self.nonce = self.nonce +1
         j = self._private_api('/api/exchange/orders/opens',self.nonce)
         w = [i['id'] for i in j['orders']]
         return oid in w
 
-    # 指定した取引ID以後の取引履歴を取得する関数（tid=Noneの場合は最新の取引を取得）
+    # 指定した取引ID以後の取引履歴を取得する関数（Noneの場合は最新の取引を取得）
     def get_transactions(self, tid=None, only_data=True):
         self.nonce = self.nonce +1
         if tid == None:
@@ -136,6 +140,7 @@ class CcApi:
                                   self.nonce)
         if only_data == True:
             j = j['data']
+
         return j
 
     # 全期間の取引履歴を取得する関数
@@ -160,3 +165,73 @@ class CcApi:
             else:
                 break
         return j_list
+
+
+
+
+
+
+    # # 履歴全件返すメソッドを追加
+    # def historyall(self):
+    #     ''' show payment historyall
+    #     '''
+    #     url= 'https://coincheck.com/api/exchange/orders/transactions_pagination?limit=25'
+    #     headers = make_header(url,access_key=self.access_key,secret_key=self.secret_key)
+    #     r = requests.get(url,headers=headers)
+    #     res = json.loads(r.text)
+    #     ret = []
+    #     while True:
+    #         if len(res['data']) > 0:
+    #             ret.extend(res['data'])
+    #             nextid = res['data'][len(res['data'])-1]['id']
+    #             while True:
+    #                 try:
+    #                     headers = make_header(url + '&starting_after=' + str(nextid),access_key=self.access_key,secret_key=self.secret_key)
+    #                     r = requests.get(url + '&starting_after=' + str(nextid),headers=headers)
+    #                     res = json.loads(r.text)
+    #                     if res['success'] == False:
+    #                         time.sleep(1)
+    #                         continue
+    #                     break
+    #                 except:
+    #                     time.sleep(1)
+    #                     continue
+    #             continue
+    #         else:
+    #             break
+    #     return ret
+    #
+    # def make_header(url,
+    #                 access_key=None,
+    #                 secret_key=None):
+    #     ''' create request header function
+    #     :param url: URL for the new :class:`Request` object.
+    #     '''
+    #     nonce = nounce()
+    #     url    = url
+    #     message = nonce + url
+    #     signature = hmac.new(secret_key.encode('utf-8'), message.encode('utf-8'), hashlib.sha256).hexdigest()
+    #     headers = {
+    #        'ACCESS-KEY'      : access_key,
+    #        'ACCESS-NONCE'    : nonce,
+    #        'ACCESS-SIGNATURE': signature
+    #     }
+    #     return headers
+
+import pprint
+
+API_KEY = set_params.CC_API_KEY
+API_SECRET = set_params.CC_API_SECRET
+API_URL = set_params.CC_API_URL
+api = CcApi(API_KEY, API_SECRET, API_URL)
+
+pagination = {'pagination':{'ending_before': None,
+               'limit': 1,
+               'order': 'desc',
+               'starting_after': None}}
+
+j = api.get_all_transactions()
+pprint.pprint(j)
+print(len(j))
+
+# requests.get()
