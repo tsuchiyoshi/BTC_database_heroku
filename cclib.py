@@ -4,6 +4,7 @@ import hmac
 import requests
 import datetime
 import json
+import time
 
 class CcApi:
     CURRENCY_PAIR = ''

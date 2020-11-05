@@ -1,5 +1,4 @@
 import requests
-from pprint import pprint
 from decimal import Decimal
 import psycopg2
 import set_params
