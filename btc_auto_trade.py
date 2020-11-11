@@ -68,7 +68,7 @@ while True:
 
     #### BTC購入フェーズ ####
     print('Log : ##### BTC Buy phase #####')
-    if buy_amount > 0:
+    if (buy_amount > 0) and (balance['btc'] < order_mim_size):
         # BTC残高が不十分なら注文の最小値を考慮して追加購入
         buy_amount = max(order_mim_size, buy_amount)
         # 単位の整形(zaifでは丁度整数単位の時、intでないと発注エラーを起こす。zaif以外はあってもなくても)
