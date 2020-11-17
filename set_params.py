@@ -48,9 +48,8 @@ try:
     # 使用するAPIキーの数
     CA_API_KEY_NUM = config.CA_API_KEY_NUM
     # ID,Tokenのキーを入力
-    CA_API_KEY_1 = config.CA_API_KEY_1
-    CA_API_KEY_2 = config.CA_API_KEY_2
-    CA_API_KEY_3 = config.CA_API_KEY_3
+    for i in range(CA_API_KEY_NUM):
+        exec(f'CA_API_KEY_{i+1} = config.CA_API_KEY_{i+1}')
 
 
 except:
@@ -101,6 +100,5 @@ except:
     # 使用するAPIキーの数
     CA_API_KEY_NUM = int(os.environ["CA_API_KEY_NUM"])
     # ID,Tokenのキーを入力
-    CA_API_KEY_1 = os.environ["CA_API_KEY_1"]
-    CA_API_KEY_2 = os.environ["CA_API_KEY_2"]
-    CA_API_KEY_3 = os.environ["CA_API_KEY_3"]
+    for i in range(CA_API_KEY_NUM):
+        exec(f'CA_API_KEY_{i+1} = os.environ["CA_API_KEY_{i+1}"]')
